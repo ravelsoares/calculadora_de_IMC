@@ -15,14 +15,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final homeController = HomeController();
 
   @override
-  void initState() {
-    super.initState();
-    homeController.addListener(() {
-      setState(() {});
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -109,14 +101,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              Text(
-                homeController.value,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.blue,
-                ),
+              ValueListenableBuilder(
+                valueListenable: homeController,
+                builder: (_, String value, __) {
+                  return Text(
+                    value,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.blue,
+                    ),
+                  );
+                },
               ),
             ],
           ),
